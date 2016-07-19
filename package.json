@@ -1,0 +1,31 @@
+{
+  "name": "baobao",
+  "version": "0.1.0",
+  "description": "An API for scheduling webinars for the No Sad Panda Initiative",
+  "main": "server.js",
+  "scripts": {
+    "test": "lab -v -m 5000",
+    "start": "nodemon"
+  },
+  "keywords": [
+    "sad",
+    "panda",
+    "meetings",
+    "scheduling"
+  ],
+  "author": "Eric Retzloff",
+  "license": "ISC",
+  "dependencies": {
+    "boom": "^3.2.2",
+    "hapi": "^13.5.0",
+    "joi": "^9.0.1",
+    "mongojs": "^2.4.0",
+    "node-uuid": "^1.4.7"
+  },
+  "devDependencies": {
+    "code": "^3.0.1",
+    "lab": "^10.9.0",
+    "nodemon": "^1.9.2"
+  },
+  "repository": {}
+}
