@@ -1,12 +1,12 @@
-'use strict';
+'use strict'
 
-const Boom = require('boom');
-const uuid = require('node-uuid');
-const Joi = require('joi');
+const Boom = require('boom')
+const uuid = require('node-uuid')
+const Joi = require('joi')
 
 exports.register = function(server, options, next) {
 
-  const db = server.app.db;
+  const db = server.app.db
 
   server.route({
     method: 'GET',
@@ -14,12 +14,12 @@ exports.register = function(server, options, next) {
     handler: function (request, reply) {
 
       db.webinars.find((err, docs) => {
-        if (err) { return reply(Boom.wrap(err, 'Internal MongoDB error')); }
+        if (err) { return reply(Boom.wrap(err, 'Internal MongoDB error')) }
 
-        reply(docs);
-      });
+        reply(docs)
+      })
     }
-  });
+  })
 
   server.route({
     method: 'GET',
@@ -30,11 +30,11 @@ exports.register = function(server, options, next) {
           _id: request.params.id
       }, (err, doc) => {
 
-        if (err) { return reply(Boom.wrap(err, 'Internal MongoDB error')); }
-        if (!doc) { return reply(Boom.notFound()); }
+        if (err) { return reply(Boom.wrap(err, 'Internal MongoDB error')) }
+        if (!doc) { return reply(Boom.notFound()) }
 
-        reply(doc).code(200);
-      });
+        reply(doc).code(200)
+      })
     },
     config: {
       validate: {
@@ -43,21 +43,21 @@ exports.register = function(server, options, next) {
         }
       }
     }
-  });
+  })
 
   server.route({
     method: 'POST',
     path: '/webinars',
     handler: function (request, reply) {
 
-      const webinar = request.payload;
+      const webinar = request.payload
 
-      webinar._id = uuid.v1();
+      webinar._id = uuid.v1()
 
       db.webinars.save(webinar, (err, result) => {
-        if (err) { return reply(Boom.wrap(err, 'Internal MongoDB error')); }
-        reply(webinar);
-      });
+        if (err) { return reply(Boom.wrap(err, 'Internal MongoDB error')) }
+        reply(webinar)
+      })
     },
     config: {
       validate: {
@@ -67,7 +67,7 @@ exports.register = function(server, options, next) {
        }
       }
     }
-  });
+  })
 
   server.route({
     method: 'PATCH',
@@ -80,11 +80,11 @@ exports.register = function(server, options, next) {
         $set: request.payload
       }, function (err, result) {
 
-        if (err) { return reply(Boom.wrap(err, 'Internal MongoDB error')); }
-        if (result.n === 0) { return reply(Boom.notFound()); }
+        if (err) { return reply(Boom.wrap(err, 'Internal MongoDB error')) }
+        if (result.n === 0) { return reply(Boom.notFound()) }
 
-        reply().code(204);
-      });
+        reply().code(204)
+      })
     },
     config: {
       validate: {
@@ -94,7 +94,7 @@ exports.register = function(server, options, next) {
         }).required().min(1)
       }
     }
-  });
+  })
 
   server.route({
     method: 'DELETE',
@@ -105,11 +105,11 @@ exports.register = function(server, options, next) {
           _id: request.params.id
       }, function (err, result) {
 
-        if (err) { return reply(Boom.wrap(err, 'Internal MongoDB error')); }
-        if (result.n === 0) { return reply(Boom.notFound()); }
+        if (err) { return reply(Boom.wrap(err, 'Internal MongoDB error')) }
+        if (result.n === 0) { return reply(Boom.notFound()) }
 
-        reply().code(204);
-      });
+        reply().code(204)
+      })
     },
     config: {
       validate: {
@@ -118,11 +118,11 @@ exports.register = function(server, options, next) {
         }
       }
     }
-  });
+  })
 
-  return next();
-};
+  return next()
+}
 
 exports.register.attributes = {
   name: 'routes-webinars'
-};
+}
